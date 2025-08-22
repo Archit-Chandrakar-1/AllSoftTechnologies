@@ -270,30 +270,6 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch
-3. Commit changes
-4. Push to branch
-5. Create pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 📞 Support
-
-For technical support or questions:
-- Email: nk@allsoft.co
-- Create an issue in the repository
-- Check the documentation
-
-## 🔄 Version History
-
-- **v1.0.0**: Initial release with core functionality
-- **v1.1.0**: Added responsive design and mobile optimization
-- **v1.2.0**: Enhanced search capabilities and UI improvements
 
 ---
 
