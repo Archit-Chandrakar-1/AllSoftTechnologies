@@ -1,0 +1,46 @@
+# Angular build output
+/dist
+/tmp
+/out-tsc
+
+# Dependencies
+/node_modules
+
+# Environment files
+src/environments/environment*.ts
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compiled output
+*.log
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Coverage reports
+/coverage
+
+# Angular cache
+.angular/cache
+
+# Optional: VS Code profiles
+*.code-workspace
+node_modules

@@ -1,0 +1,28 @@
+.admin-container {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fefefe;
+}
+
+.full-width {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.success-message {
+  margin-top: 15px;
+  color: green;
+  font-weight: 600;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+  font-weight: 600;
+}

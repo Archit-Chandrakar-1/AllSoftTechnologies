@@ -1,0 +1,77 @@
+<form [formGroup]="searchForm" class="search-form" (ngSubmit)="onSearch()" novalidate>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category" (selectionChange)="onCategoryChange($event.value)">
+      <mat-option value="">All</mat-option>
+      <mat-option value="Personal">Personal</mat-option>
+      <mat-option value="Professional">Professional</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>{{ minorHeadLabel }}</mat-label>
+    <mat-select formControlName="minorHead">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let option of minorHeadOptions" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width tag-field">
+    <mat-label>Tags</mat-label>
+    <mat-chip-grid #chipList aria-label="Search tags">
+      <mat-chip *ngFor="let tag of selectedTags" selectable="true" removable="true" (removed)="removeTag(tag)">
+        {{ tag }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Add tag"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addTag($event)"
+      />
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>From Date</mat-label>
+    <input matInput [matDatepicker]="pickerFrom" formControlName="fromDate" placeholder="Start date">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>To Date</mat-label>
+    <input matInput [matDatepicker]="pickerTo" formControlName="toDate" placeholder="End date">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    Search
+  </button>
+</form>
+
+<div *ngIf="searchResults && searchResults.length > 0" class="results-container">
+  <h3>Search Results ({{ searchResults.length }})</h3>
+
+  <mat-list>
+    <mat-list-item *ngFor="let doc of searchResults">
+      <span mat-line>{{ doc.fileName }}</span>
+      <span mat-line>Category: {{ doc.category }}, {{ minorHeadLabel }}: {{ doc.minorHead }}</span>
+      <span mat-line>Tags: {{ doc.tags.join(', ') }}</span>
+
+      <button mat-button color="accent" (click)="preview(doc)">Preview</button>
+      <button mat-button (click)="download(doc)">Download</button>
+    </mat-list-item>
+  </mat-list>
+
+  <button mat-raised-button color="primary" (click)="downloadAll()">
+    Download All as ZIP
+  </button>
+</div>
+
+<div *ngIf="searchResults && searchResults.length === 0" class="no-results">
+  No documents found matching the criteria.
+</div>

@@ -1,0 +1,74 @@
+<form [formGroup]="uploadForm" class="upload-form" (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="uploadForm.get('date')?.invalid && uploadForm.get('date')?.touched">
+      Date is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category" (selectionChange)="onCategoryChange($event.value)" required>
+      <mat-option value="Personal">Personal</mat-option>
+      <mat-option value="Professional">Professional</mat-option>
+    </mat-select>
+    <mat-error *ngIf="uploadForm.get('category')?.invalid && uploadForm.get('category')?.touched">
+      Category is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>{{ minorHeadLabel }}</mat-label>
+    <mat-select formControlName="minorHead" required>
+      <mat-option *ngFor="let option of minorHeadOptions" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="uploadForm.get('minorHead')?.invalid && uploadForm.get('minorHead')?.touched">
+      {{ minorHeadLabel }} is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width tag-field">
+    <mat-label>Tags</mat-label>
+    <mat-chip-grid #chipList aria-label="Document tags">
+      <mat-chip *ngFor="let tag of selectedTags" selectable="true" removable="true" (removed)="removeTag(tag)">
+        {{ tag }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Add tag"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addTag($event)"
+      />
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Remarks</mat-label>
+    <input matInput formControlName="remarks" placeholder="Remarks (optional)">
+  </mat-form-field>
+
+  <div class="file-input-wrapper">
+    <label for="file-upload" class="file-upload-label">
+      <mat-icon>upload_file</mat-icon> 
+      Choose File (PDF or Image)
+    </label>
+    <input type="file" id="file-upload" accept=".pdf,image/*" (change)="onFileSelect($event)" />
+    <div *ngIf="selectedFileName" class="selected-file-name">
+      Selected: {{ selectedFileName }}
+    </div>
+    <mat-error *ngIf="fileInvalid">
+      Please upload a valid PDF or image file.
+    </mat-error>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="uploadForm.invalid || !selectedFile">
+    Upload Document
+  </button>
+  
+</form>

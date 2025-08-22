@@ -1,0 +1,40 @@
+.search-form {
+  max-width: 700px;
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.full-width {
+  flex: 1 1 100%;
+}
+
+.tag-field {
+  min-height: 70px;
+  flex: 1 1 100%;
+}
+
+.results-container {
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.no-results {
+  margin: 20px auto;
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+mat-list-item {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-list-item button {
+  margin-left: 12px;
+}

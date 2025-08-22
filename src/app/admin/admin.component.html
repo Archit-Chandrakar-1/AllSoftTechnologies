@@ -1,0 +1,28 @@
+<div class="admin-container">
+  <h2>User Creation</h2>
+
+  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Enter username" required>
+      <mat-error *ngIf="adminForm.get('username')?.invalid && adminForm.get('username')?.touched">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" placeholder="Enter password" required>
+      <mat-error *ngIf="adminForm.get('password')?.invalid && adminForm.get('password')?.touched">
+        Password is required (min 6 characters)
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="adminForm.invalid">Create User</button>
+
+  </form>
+
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>

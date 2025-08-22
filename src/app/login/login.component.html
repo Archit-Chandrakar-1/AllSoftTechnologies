@@ -1,0 +1,97 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <mat-icon class="login-icon">lock</mat-icon>
+      <h2>Document Management System</h2>
+      <p>Login with OTP</p>
+    </div>
+
+    <div *ngIf="!showOtpForm" class="login-form">
+      <form [formGroup]="loginForm" (ngSubmit)="onSendOtp()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mobile Number</mat-label>
+          <input 
+            matInput 
+            formControlName="mobileNumber" 
+            placeholder="Enter 10-digit mobile number"
+            type="tel"
+            maxlength="10">
+          <mat-error *ngIf="loginForm.get('mobileNumber')?.hasError('required')">
+            Mobile number is required
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('mobileNumber')?.hasError('pattern')">
+            Please enter a valid 10-digit mobile number
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          class="full-width"
+          [disabled]="loginForm.invalid || isLoading">
+          <mat-icon *ngIf="!isLoading">send</mat-icon>
+          <span *ngIf="isLoading">Sending...</span>
+          <span *ngIf="!isLoading">Send OTP</span>
+        </button>
+      </form>
+    </div>
+
+    <div *ngIf="showOtpForm" class="otp-form">
+      <form [formGroup]="otpForm" (ngSubmit)="onValidateOtp()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>OTP</mat-label>
+          <input 
+            matInput 
+            formControlName="otp" 
+            placeholder="Enter 6-digit OTP"
+            type="text"
+            maxlength="6">
+          <mat-error *ngIf="otpForm.get('otp')?.hasError('required')">
+            OTP is required
+          </mat-error>
+          <mat-error *ngIf="otpForm.get('otp')?.hasError('pattern')">
+            Please enter a valid 6-digit OTP
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          class="full-width"
+          [disabled]="otpForm.invalid || isLoading">
+          <mat-icon *ngIf="!isLoading">login</mat-icon>
+          <span *ngIf="isLoading">Verifying...</span>
+          <span *ngIf="!isLoading">Verify OTP</span>
+        </button>
+
+        <div class="resend-section">
+          <button 
+            mat-button 
+            type="button" 
+            (click)="onResendOtp()"
+            [disabled]="!canResendOtp || isLoading">
+            <mat-icon>refresh</mat-icon>
+            Resend OTP
+          </button>
+          <span *ngIf="countdown > 0" class="countdown">
+            Resend in {{ countdown }}s
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ errorMessage }}
+    </div>
+
+    <div class="back-to-login" *ngIf="showOtpForm">
+      <button mat-button type="button" (click)="showOtpForm = false">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Mobile Number
+      </button>
+    </div>
+  </div>
+</div>

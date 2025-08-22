@@ -1,0 +1,46 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">
+        <mat-icon class="title-icon">folder</mat-icon>
+        Document Management System
+      </h1>
+      <nav class="nav-menu">
+        <button mat-button routerLink="/home" routerLinkActive="active">
+          <mat-icon>home</mat-icon>
+          Home
+        </button>
+        <button mat-button routerLink="/upload" routerLinkActive="active">
+          <mat-icon>upload</mat-icon>
+          Upload
+        </button>
+        <button mat-button routerLink="/search" routerLinkActive="active">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+        <button mat-button routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">
+          <mat-icon>admin_panel_settings</mat-icon>
+          Admin
+        </button>
+        <button mat-button (click)="logout()" class="logout-btn">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+</main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>&copy; 2024 Document Management System. All rights reserved.</p>
+  </footer>
+
+  <!-- Notifications -->
+  <app-notifications></app-notifications>
+</div>

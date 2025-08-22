@@ -1,0 +1,23 @@
+<div class="preview-container" *ngIf="fileUrl">
+  <h2>File Preview</h2>
+
+  <div class="preview-area" *ngIf="isImage(fileUrl)">
+    <img [src]="fileUrl" alt="Document Image Preview" />
+  </div>
+
+  <div class="preview-area" *ngIf="isPdf(fileUrl)">
+    <iframe [src]="fileUrl | safeUrl" width="100%" height="600px"></iframe>
+  </div>
+
+  <div *ngIf="!isImage(fileUrl) && !isPdf(fileUrl)" class="unsupported-message">
+    Preview not available for this file type.
+  </div>
+
+  <button mat-raised-button color="primary" (click)="downloadFile()">
+    Download File
+  </button>
+</div>
+
+<div *ngIf="!fileUrl" class="no-file-message">
+  No file selected for preview.
+</div>
